@@ -1,0 +1,31 @@
+# Ignore all build directories (make, CMake, etc.)
+build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.cmake
+
+# Ignore most of the VS Code settings folder
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/c_cpp_properties.json
+!.vscode/settings.json
+
+# Ignore temporary files, including swap files
+*.swp
+*.bak
+*.tmp
+
+# Ignore compiled binaries
+*.out
+*.exe
+*.o
+*.obj
+
+# Ignore dependency files
+*.d
+
+# Ignore macOS system files
+.DS_Store
+
