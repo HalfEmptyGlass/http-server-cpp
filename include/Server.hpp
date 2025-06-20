@@ -3,13 +3,13 @@
 #include <cstdint>
 
 class Server {
-public:
-  Server(uint16_t port);
+  public:
+    Server(uint16_t port);
 
-  void run();
+    void run();
 
-private:
-  uint16_t m_port;
+  private:
+    uint16_t m_port;
 
-  void handle_connection(int client_fd);
+    void handle_connection(int client_fd);
 };

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <vector>
+#include <iostream>
 #include <string>
 #include <string_view>
-#include <iostream>
 #include <unordered_map>
+#include <vector>
 
 namespace utils {
 
@@ -22,9 +22,9 @@ namespace utils {
   template<typename K, typename V>
   void print_map(const std::unordered_map<K, V>& map) {
     for(const auto& [key, value] : map) {
-      std::cout << key << ": " << value <<std::endl;
+      std::cout << key << ": " << value << std::endl;
     }
   }
 
   void print(std::string_view str);
-};
+};   // namespace utils
