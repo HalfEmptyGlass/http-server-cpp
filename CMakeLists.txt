@@ -9,11 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 
-# Define include directories
-include_directories(include)
-
 # Collect all source files in the src folder
 file(GLOB SOURCES "src/*.cpp")
 
 # Create the executable for the project
 add_executable(httpservercpp ${SOURCES})
+
+# Define include directories
+target_include_directories(httpservercpp PRIVATE ${CMAKE_SOURCE_DIR}/include)

@@ -1,0 +1,44 @@
+#I don't like forcing trailing return types on everything
+Checks: >
+  clang-analyzer-*,
+  readability-*,
+  performance-*,
+  modernize-*,
+  bugprone-*,
+  cppcoreguidelines-*
+  cert-*
+  misc-*
+  portability-*
+  -modernize-use-trailing-return-type 
+ 
+WarningsAsErrors: '*'
+
+FormatStyle: file  # Use .clang-format if available
+
+CheckOptions:
+  - key: readability-braces-around-statements.BracesAroundStatements
+    value: 'true'  # Always use braces even for single-line statements
+  - key: performance-for-range-copy.UseMove
+    value: 'true'  # Avoid copying elements in range-based loops; prefer move
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'  # Replace NULL macros with nullptr (safer and type-safe)
+  - key: modernize-use-auto
+    value: 'true'  # Encourages the use of auto to reduce boilerplate and improve readability
+  - key: cppcoreguidelines-pro-type-member-init.IgnoreMacros
+    value: 'true'  # Ignore macro-initialized members, reduce false positives
+  - key: bugprone-dangling-handle.DanglingHandle
+    value: 'true'  # Detect potential dangling pointers in a multithreaded environment
+  - key: bugprone-unused-parameters.UnusedParameters
+    value: 'true'  # Detect unused function parameters, which might indicate missing functionality or errors
+  - key: performance-inefficient-algorithm
+    value: 'true'  # Warn about inefficient algorithms or non-optimal code
+  - key: portability-implicit-conversion
+    value: 'true'  # Warn when implicit type conversions could lead to portability issues
+  - key: cert-err58-c
+    value: 'true'  # Prevent unsafe type conversions between integer types (e.g., size_t to int)
+  - key: clang-analyzer-core.uninitialized.Returning
+    value: 'true'  # Ensure no uninitialized variables are returned from functions
+  - key: misc-unused-parameters.UnusedParameters
+    value: 'true'  # Warn about unused function parameters, which could indicate unnecessary code or bugs
+  - key: bugprone-undefined-memory-manipulation
+    value: 'true'  # Detect potential undefined memory manipulation issues in the code
