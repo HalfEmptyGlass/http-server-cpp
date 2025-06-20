@@ -1,5 +1,6 @@
 # Ignore all build directories (make, CMake, etc.)
 build/
+builds/
 CMakeFiles/
 CMakeCache.txt
 Makefile

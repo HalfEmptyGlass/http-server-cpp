@@ -2,9 +2,20 @@
     "configurations": [
         {
             "name": "WSL",
+            //Helps IntelliSense resolve #include directives to your project’s header files and any dependencies.
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include"
             ],
+            "browse": {
+                //Allows IntelliSense to quickly find symbols even if they are not directly included in the current source file.
+                "path": [
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/src"
+                ],
+                //When set to true, the tag parser only indexes symbols from header files that are actually included by your source files
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
             "defines": [],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c23",
