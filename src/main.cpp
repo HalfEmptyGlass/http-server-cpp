@@ -1,19 +1,13 @@
-#include <iostream>
 #include "Server.hpp"
+#include <iostream>
+
 // TODO
 // move parsing functions from Request to HTTP
 // any opertations on the raw buffer/request should be operated by the HTTP class
 
+class Router {};
 
-
-
-
-class Router {
-
-};
-
-
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   Server server{4421};
 
   // IDEAL SCENARIO
