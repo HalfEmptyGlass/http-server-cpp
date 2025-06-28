@@ -3,15 +3,19 @@
 #include "Http.hpp"
 #include "Request.hpp"
 #include "Response.hpp"
+#include <Connection.hpp>
 #include <iostream>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <thread>
 
-Server::Server(uint16_t port): m_port(port) {}
+Server::Server(ServerConfig config, std::shared_ptr<Router> router):
+    m_config(config), m_router(router) {}
 
 void Server::run() {
   std::cout << "Web server starting...\n";
+  Response::s_http_version = m_config.http_version;
+
   // Get a socketId
   int server_fd = socket(AF_INET, SOCK_STREAM, 0);
   if(server_fd < 0) {
@@ -29,7 +33,7 @@ void Server::run() {
   struct sockaddr_in server_addr;
   server_addr.sin_family      = AF_INET;
   server_addr.sin_addr.s_addr = INADDR_ANY;
-  server_addr.sin_port        = htons(m_port);
+  server_addr.sin_port        = htons(m_config.m_port);
 
   // set ip and port of socket
   if(bind(server_fd, (struct sockaddr*) &server_addr, sizeof(server_addr)) != 0) {
@@ -55,24 +59,9 @@ void Server::run() {
       continue;
     }
 
-    std::jthread(&Server::handle_connection, this, client_fd);
+    std::thread([client_fd, router = m_router]() {
+      Connection conn{client_fd, router};
+      conn.handle();
+    }).detach();
   }
-}
-
-void Server::handle_connection(int client_fd) {
-  std::cout << "Client connected\n";
-  char buffer[4096];
-  int  bytes_read = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
-
-  if(bytes_read > -1) {
-    buffer[bytes_read] = '\0';
-    Request request    = Http::parse_request(buffer);
-    request.print();
-  }
-
-  Response res{client_fd};
-  res.set_body("Hello World");
-  res.send();
-
-  close(client_fd);
 }

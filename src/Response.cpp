@@ -3,8 +3,9 @@
 #include <format>
 #include <sys/socket.h>
 
-Response::Response(int client_fd):
-    m_client_fd(client_fd), m_status_line("HTTP/1.1 200 OK"), m_header({}), m_body("") {
+std::string Response::s_http_version = "";
+
+Response::Response(StatusLine status_line): m_status_line(status_line), m_header({}), m_body("") {
   m_header["Content-Type"] = "text/plain";
 }
 
@@ -14,16 +15,12 @@ void Response::set_header(std::string_view key, std::string_view value) {
   m_header[std::string(key)] = std::string(value);
 }
 
-void Response::send() const {
-  std::string response  = m_status_line;
-  response             += Http::CRLF;
-  response             += "Content-Length: ";
-  response             += std::to_string(m_body.size());
-  response             += Http::CRLF;
-  for(const auto& [key, value] : m_header) {
-    response += std::format("{}: {}\r\n", key, value);
-  }
-  response += Http::CRLF;
-  response += m_body;
-  ::send(m_client_fd, response.c_str(), response.length(), 0);
+Response Response::s_ok() { return Response({s_http_version, 200, "OK"}); }
+
+Response Response::s_created() { return Response({s_http_version, 201, "Created"}); }
+
+Response Response::s_not_found() { return Response({s_http_version, 404, "Not Found"}); }
+
+Response Response::s_method_not_allowed() {
+  return Response({s_http_version, 405, "Method Not Allowed"});
 }
