@@ -1,15 +1,17 @@
 #pragma once
 
+#include "Router.hpp"
+#include "ServerConfig.hpp"
 #include <cstdint>
+#include <memory>
 
 class Server {
   public:
-    Server(uint16_t port);
+    Server(ServerConfig config, std::shared_ptr<Router> router);
 
     void run();
 
   private:
-    uint16_t m_port;
-
-    void handle_connection(int client_fd);
+    ServerConfig            m_config;
+    std::shared_ptr<Router> m_router;
 };

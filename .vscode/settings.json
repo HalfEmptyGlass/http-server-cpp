@@ -68,6 +68,7 @@
       "span": "cpp",
       "variant": "cpp",
       "chrono": "cpp",
-      "cinttypes": "cpp"
+      "cinttypes": "cpp",
+      "unordered_set": "cpp"
     }
   }
