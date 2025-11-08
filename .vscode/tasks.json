@@ -7,21 +7,30 @@
 			"command": "cmake",
 			"args": [
 				"-S", ".",
-				"-B", "build/debug",
+				"-B", "./builds/build-debug",
 				"-DCMAKE_BUILD_TYPE=Debug"
-			]
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			  }
 		},
 		{
 			"label": "CMake Build Debug",
 			"type": "shell",
 			"command": "cmake",
 			"args": [
-				"--build", "build/debug",
+				"--build", "./builds/build-debug",
 			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			  }
+		},
+		{
+			"label": "Run Debug",
+			"type": "shell",
+			"command": "./builds/build-debug/httpservercpp"
 		}
 	]
 }
