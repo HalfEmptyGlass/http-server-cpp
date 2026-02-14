@@ -35,5 +35,3 @@ Run app
 # cwd: httpservercpp
 find ./include ./src -name "*.cpp" -o -name "*.hpp" | xargs clang-format -i
 ```
-
-
