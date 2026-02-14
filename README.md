@@ -1,5 +1,6 @@
 # http-server-cpp
 An HTTP server created using only raw C++
+Commands are relative to the working directory httpservercpp
 
 Configure cmake
 ```
@@ -28,6 +29,9 @@ Run app
 ./builds/build-release/httpservercpp
 ```
 
-
-
-
+# Miscellaneous
+```
+# clang-format command
+# cwd: httpservercpp
+find ./include ./src -name "*.cpp" -o -name "*.hpp" | xargs clang-format -i
+```
