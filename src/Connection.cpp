@@ -9,11 +9,20 @@ Connection::Connection(int client_fd, std::shared_ptr<Router> router):
     m_client_fd(client_fd), m_router(router) {}
 
 void Connection::handle() {
-  std::cout << "Client connected\n";
-  char buffer[4096];
-  int  bytes_read = recv(m_client_fd, buffer, sizeof(buffer) - 1, 0);
+    std::cout << "=====\n";
+    std::cout << "Client connected\n";
+    char buffer[4096];
+    int  bytes_read = ::recv(m_client_fd, buffer, sizeof(buffer) - 1, 0);
+    if(bytes_read == -1) {
+        std::cout << "Error occured while reading from client\n";
+    }
 
-  if(bytes_read > -1) {
+    if(bytes_read == 0) {
+        std::cout << "Client disconnected\n";
+        close(m_client_fd);
+        return;
+    }
+
     buffer[bytes_read] = '\0';
     Request request    = Http::parse_request(buffer);
     request.print();
@@ -26,12 +35,11 @@ void Connection::handle() {
     response += std::to_string(res.m_body.size());
     response += Http::CRLF;
     for(const auto& [key, value] : res.m_header) {
-      response += std::format("{}: {}\r\n", key, value);
+        response += std::format("{}: {}\r\n", key, value);
     }
     response += Http::CRLF;
     response += res.m_body;
     ::send(m_client_fd, response.c_str(), response.length(), 0);
-  }
-
-  close(m_client_fd);
+    std::cout << "=====\n";
+    close(m_client_fd);
 }

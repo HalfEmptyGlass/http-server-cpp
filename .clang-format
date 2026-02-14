@@ -1,6 +1,6 @@
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 Language: Cpp
-AccessModifierOffset: -2
+AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: Right
 AlignConsecutiveAssignments: 
@@ -134,7 +134,7 @@ IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: AfterHash
 IndentRequiresClause: false
-IndentWidth: 2
+IndentWidth: 4
 IndentWrappedFunctionNames: false
 InsertBraces: false
 InsertNewlineAtEOF: false
@@ -233,7 +233,7 @@ Standard: Latest
 # StatementMacros:                    Not using Macros     
 #   - Q_UNUSED
 #   - QT_REQUIRE_VERSION
-TabWidth: 8
+TabWidth: 4
 UseTab: Never
 # VerilogBreakBetweenInstancePorts: true  Verilog configuration, not C++
 # WhitespaceSensitiveMacros:          Not using Macros
